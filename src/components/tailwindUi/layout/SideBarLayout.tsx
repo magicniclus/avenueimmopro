@@ -99,9 +99,9 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex justify-center items-center h-screen w-screen bg-white">
         <div className="text-center">
           <img
-            src="/vercel.svg"
+            src="/favicon.png"
             alt="logo"
-            className="animate-ping w-10 h-10"
+            className="animate-pulse w-10 h-10"
           />
         </div>
       </div>
@@ -110,7 +110,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <div>
+      <div className="relative">
         <Transition show={sidebarOpen}>
           <Dialog className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
             <TransitionChild
