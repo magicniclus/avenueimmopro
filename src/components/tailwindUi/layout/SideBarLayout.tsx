@@ -18,10 +18,13 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import {
+  ArrowTrendingUpIcon,
   Bars3Icon,
   BellIcon,
   Cog6ToothIcon,
+  EnvelopeIcon,
   HomeIcon,
+  UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
@@ -33,12 +36,25 @@ function classNames(...classes: string[]) {
 
 const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   const navigation = [
-    { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-    // { name: "Team", href: "#", icon: UsersIcon, current: false },
-    // { name: "Projects", href: "#", icon: FolderIcon, current: false },
-    // { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-    // { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-    // { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
+    {
+      name: "Tableau de bord",
+      href: "/user/tableau-de-bord",
+      icon: HomeIcon,
+      current: true,
+    },
+    { name: "Leads", href: "/user/leads", icon: UserIcon, current: false },
+    {
+      name: "Perfomances",
+      href: "/user/performances",
+      icon: ArrowTrendingUpIcon,
+      current: false,
+    },
+    {
+      name: "Contact",
+      href: "/user/contact",
+      icon: EnvelopeIcon,
+      current: false,
+    },
   ];
   const teams = [
     { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
@@ -174,7 +190,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                             ))}
                           </ul>
                         </li>
-                        <li>
+                        {/* <li>
                           <div className="text-xs font-semibold leading-6 text-gray-400">
                             Your teams
                           </div>
@@ -198,7 +214,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                               </li>
                             ))}
                           </ul>
-                        </li>
+                        </li> */}
                         <li className="mt-auto">
                           <a
                             href="#"
@@ -257,7 +273,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                     ))}
                   </ul>
                 </li>
-                <li>
+                {/* <li>
                   <div className="text-xs font-semibold leading-6 text-gray-400">
                     Your teams
                   </div>
@@ -281,7 +297,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                       </li>
                     ))}
                   </ul>
-                </li>
+                </li> */}
                 <li className="mt-auto">
                   <a
                     href="#"
