@@ -76,7 +76,7 @@ const ChangePasseword: React.FC = ({ href }: { href?: string }) => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
               Réinitialiser
             </button>
@@ -87,7 +87,7 @@ const ChangePasseword: React.FC = ({ href }: { href?: string }) => {
           Vous souvenez-vous de votre mot de passe ?{" "}
           <a
             href={href ? href : "/user/connexion"}
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            className="font-semibold leading-6 text-blue-600 hover:text-blue-500"
           >
             Connectez-vous
           </a>
