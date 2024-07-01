@@ -145,7 +145,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                     <div className="flex h-16 shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                        src="/logo-white.png"
                         alt="Your Company"
                       />
                     </div>
@@ -228,7 +228,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex h-16 shrink-0 items-center">
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                src="/logo-white.png"
                 alt="Your Company"
               />
             </div>
