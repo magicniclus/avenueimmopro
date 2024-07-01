@@ -1,4 +1,6 @@
+import { setDrawerOpen } from "@/redux/drawerSlice";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import { useDispatch } from "react-redux";
 
 const List = () => {
   const people = [
@@ -10,6 +12,11 @@ const List = () => {
       date: "09/01/2024",
     },
   ];
+  const dispatch = useDispatch();
+
+  const setOpen = (value: boolean) => {
+    dispatch(setDrawerOpen(value));
+  };
   return (
     <div className="">
       <div className="sm:flex sm:items-center">
@@ -24,6 +31,7 @@ const List = () => {
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button
             type="button"
+            onClick={() => setOpen(true)}
             className="flex rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
             <PlusIcon className="h-5 w-5 inline-block -mt-0.5 mr-1" />
@@ -71,14 +79,8 @@ const List = () => {
                   <tr key={person.email}>
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center">
-                        <div className="h-11 w-11 flex-shrink-0"></div>
-                        <div className="ml-4">
-                          <div className="font-medium text-gray-900">
-                            {person.name}
-                          </div>
-                          <div className="mt-1 text-gray-500">
-                            {person.email}
-                          </div>
+                        <div className="font-medium text-gray-900">
+                          {person.name}
                         </div>
                       </div>
                     </td>
@@ -104,6 +106,15 @@ const List = () => {
             </table>
           </div>
         </div>
+      </div>
+      <div className="mt-8 sm:flex-none">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="flex rounded-md text-blue-600 px-3 py-2 text-center text-sm font-semibold hover:shadow-sm transition duration-150 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        >
+          Voir tous vos leads
+        </button>
       </div>
     </div>
   );
