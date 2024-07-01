@@ -63,8 +63,8 @@ const ConnexionForm: React.FC<ConnexionFormProps> = ({ title, href }) => {
       <Toaster /> {/* Assurez-vous que le composant Toaster est inclus */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
-          className="mx-auto h-10 w-auto"
-          src="/logo.png"
+          className="mx-auto h-20 w-auto"
+          src="/favicon.png"
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -105,7 +105,7 @@ const ConnexionForm: React.FC<ConnexionFormProps> = ({ title, href }) => {
               <div className="text-sm">
                 <a
                   href="/changer-le-mot-de-passe"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="font-semibold text-blue-600 hover:text-blue-500"
                 >
                   Mot de passe oublié ?
                 </a>
@@ -127,7 +127,7 @@ const ConnexionForm: React.FC<ConnexionFormProps> = ({ title, href }) => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
               Se connecter
             </button>
@@ -138,7 +138,7 @@ const ConnexionForm: React.FC<ConnexionFormProps> = ({ title, href }) => {
           Pas encore inscrit ?{" "}
           <a
             href="/"
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            className="font-semibold leading-6 text-blue-600 hover:text-blue-500"
           >
             Publiez votre projet
           </a>
