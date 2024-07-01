@@ -101,7 +101,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
           <img
             src="/favicon.png"
             alt="logo"
-            className="animate-pulse w-10 h-10"
+            className="animate-pulse w-20 h-20"
           />
         </div>
       </div>
