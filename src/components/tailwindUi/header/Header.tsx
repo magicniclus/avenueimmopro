@@ -55,7 +55,7 @@ export default function Header({
       >
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">avenue-immo.fr</span>
             <img className="h-8 w-auto" src="/logo.png" alt="" />
           </a>
         </div>
@@ -144,7 +144,7 @@ export default function Header({
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
-            href="/user/connexion"
+            href="/espace-pro/connexion"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Log in <span aria-hidden="true">&rarr;</span>
@@ -160,7 +160,7 @@ export default function Header({
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">avenue-immo.fr</span>
               <img className="h-8 w-auto" src="/logo.png" alt="" />
             </a>
             <button
@@ -224,7 +224,7 @@ export default function Header({
               </div>
               <div className="py-6">
                 <a
-                  href="/user/connexion"
+                  href="/epsace-pro/connexion"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Log in
