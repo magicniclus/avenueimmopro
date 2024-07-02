@@ -119,7 +119,11 @@ const globalFilterFn: FilterFn<Lead> = (row, columnId, value) => {
   );
 };
 
-export function DataTableDemo() {
+export function DataTableDemo(
+  { withButton, getData }: { withButton?: boolean; getData?: string } = {
+    withButton: true,
+  }
+) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [columnVisibility, setColumnVisibility] =
@@ -280,15 +284,17 @@ export function DataTableDemo() {
           </Button>
         </div>
       </div>
-      <div className="mt-8 sm:flex-none">
-        <Button
-          onClick={() => setOpen(true)}
-          className="flex items-center rounded-md text-white px-3 py-2 text-center text-sm font-semibold hover:shadow-sm transition duration-150 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-        >
-          Voir tous vos leads
-          <ArrowRightIcon className="h-5 w-5 inline-block -mt-0.5 ml-1" />
-        </Button>
-      </div>
+      {withButton && (
+        <div className="mt-8 sm:flex-none">
+          <a
+            href="/espace-pro/leads"
+            className="flex items-center w-max bg-gray-900 rounded-md text-white px-3 py-2 text-center text-sm font-semibold hover:shadow-sm transition duration-150 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+          >
+            Voir tous vos leads
+            <ArrowRightIcon className="h-5 w-5 inline-block -mt-0.5 ml-1" />
+          </a>
+        </div>
+      )}
     </div>
   );
 }
