@@ -58,7 +58,7 @@ const Page = () => {
           <Bar
             data={mandats}
             barName="Nombre de mandats rentrés"
-            barColor="#0891b2"
+            barColor="#eab308"
             height={300}
           />
         </div>
