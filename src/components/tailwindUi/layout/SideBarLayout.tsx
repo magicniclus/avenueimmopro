@@ -34,20 +34,25 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   const navigation = [
     {
       name: "Tableau de bord",
-      href: "/user/tableau-de-bord",
+      href: "/espace-pro/tableau-de-bord",
       icon: HomeIcon,
       current: true,
     },
-    { name: "Leads", href: "/user/leads", icon: UserIcon, current: false },
+    {
+      name: "Leads",
+      href: "/espace-pro/leads",
+      icon: UserIcon,
+      current: false,
+    },
     {
       name: "Perfomances",
-      href: "/user/performances",
+      href: "/espace-pro/performances",
       icon: ArrowTrendingUpIcon,
       current: false,
     },
     {
       name: "Contact",
-      href: "/user/contact",
+      href: "/espace-pro/contact",
       icon: EnvelopeIcon,
       current: false,
     },
@@ -83,7 +88,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
       const loggedIn = await isUserLoggedIn();
       if (!loggedIn) {
         await setIsLoaded(false);
-        router.push("/user/connexion");
+        router.push("/espace-pro/connexion");
       }
       setIsLoaded(false);
     };
@@ -173,7 +178,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                       <img
                         className="h-8 w-auto"
                         src="/logo-white.png"
-                        alt="Your Company"
+                        alt="avenue-immo.fr"
                       />
                     </div>
                     <nav className="flex flex-1 flex-col">
@@ -256,7 +261,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
               <img
                 className="h-8 w-auto"
                 src="/logo-white.png"
-                alt="Your Company"
+                alt="avenue-immo.fr"
               />
             </div>
             <nav className="flex flex-1 flex-col">
