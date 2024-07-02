@@ -40,7 +40,7 @@ const ChangePasseword: React.FC = ({ href }: { href?: string }) => {
         <img
           className="mx-auto h-10 w-auto"
           src="/logo.png"
-          alt="Your Company"
+          alt="avenue-immo.fr"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Réinitialisez votre mot de passe
