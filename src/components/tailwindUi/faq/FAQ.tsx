@@ -48,7 +48,7 @@ const FAQ = () => {
                       </DisclosureButton>
                     </dt>
                     <DisclosurePanel as="dd" className="mt-2 pr-12">
-                      <p className="text-base leading-7 text-gray-300">
+                      <p className="text-base leading-7 text-gray-400">
                         {faq.answer}
                       </p>
                     </DisclosurePanel>
