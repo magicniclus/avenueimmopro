@@ -1,5 +1,5 @@
 import { setDrawerOpen } from "@/redux/drawerSlice";
-import { PlusIcon } from "@heroicons/react/20/solid";
+import { ArrowRightIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 
 const List = () => {
@@ -111,9 +111,10 @@ const List = () => {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="flex rounded-md text-blue-600 px-3 py-2 text-center text-sm font-semibold hover:shadow-sm transition duration-150 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          className="flex items-center rounded-md text-gray-600 px-3 py-2 text-center text-sm font-semibold hover:shadow-sm transition duration-150 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           Voir tous vos leads
+          <ArrowRightIcon className="h-5 w-5 inline-block -mt-0.5 ml-1" />
         </button>
       </div>
     </div>
