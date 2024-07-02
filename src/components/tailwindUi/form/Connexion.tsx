@@ -65,7 +65,7 @@ const ConnexionForm: React.FC<ConnexionFormProps> = ({ title, href }) => {
         <img
           className="mx-auto h-20 w-auto"
           src="/favicon.png"
-          alt="Your Company"
+          alt="avenue-immo.fr"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {title ? title : "Connectez-vous à votre espace"}
