@@ -50,7 +50,7 @@ const ConnexionForm: React.FC<ConnexionFormProps> = ({ title, href }) => {
 
     try {
       await signIn(email, password);
-      router.push(href || "/user/tableau-de-bord");
+      router.push(href || "/espace-pro/tableau-de-bord");
       // Redirection ou autres actions après connexion réussie
     } catch (error) {
       setError("Échec de la connexion. Veuillez vérifier vos informations.");
