@@ -16,7 +16,7 @@ const ConnexionPage = () => {
     const checkUserLoggedIn = async () => {
       const loggedIn = await isUserLoggedIn();
       if (loggedIn) {
-        router.push("/user/tableau-de-bord");
+        router.push("/espace-pro/tableau-de-bord");
       }
     };
 
