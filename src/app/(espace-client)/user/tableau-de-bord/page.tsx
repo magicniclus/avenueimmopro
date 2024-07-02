@@ -1,6 +1,8 @@
 "use client";
 
+import ListLink from "@/components/perso/ListLink";
 import Drawer from "@/components/tailwindUi/drawers/Drawer";
+import FAQ from "@/components/tailwindUi/faq/FAQ";
 import SideBarLayout from "@/components/tailwindUi/layout/SideBarLayout";
 import List from "@/components/tailwindUi/list/List";
 import Stats from "@/components/tailwindUi/stats/Stats";
@@ -24,6 +26,10 @@ const Page = () => {
         </div>
         <div className="mt-14">
           <List />
+        </div>
+        <div className="flex justify-between flex-col md:flex-row mt-14">
+          <ListLink />
+          <FAQ />
         </div>
       </SideBarLayout>
     </div>
