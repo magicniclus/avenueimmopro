@@ -336,7 +336,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
                       className="h-6 w-6 shrink-0"
                       aria-hidden="true"
                     />
-                    Sign out
+                    Deconnexion
                   </a>
                 </li>
               </ul>
