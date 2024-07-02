@@ -1,6 +1,6 @@
 import {
-  CursorArrowRaysIcon,
-  EnvelopeOpenIcon,
+  CalendarDaysIcon,
+  PhoneIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 
@@ -15,13 +15,13 @@ const stats = [
     id: 2,
     name: "Nombre d'appels aboutis",
     stat: "70%",
-    icon: EnvelopeOpenIcon,
+    icon: PhoneIcon,
   },
   {
     id: 3,
     name: "Rendez-vous pris",
     stat: "24.57%",
-    icon: CursorArrowRaysIcon,
+    icon: CalendarDaysIcon,
     change: "3.2%",
     changeType: "decrease",
   },
