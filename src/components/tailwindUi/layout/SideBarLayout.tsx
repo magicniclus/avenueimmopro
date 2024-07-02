@@ -23,7 +23,7 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function classNames(...classes: string[]) {
@@ -31,12 +31,15 @@ function classNames(...classes: string[]) {
 }
 
 const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
-  const navigation = [
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const [navigation, setNavigation] = useState([
     {
       name: "Tableau de bord",
       href: "/espace-pro/tableau-de-bord",
       icon: HomeIcon,
-      current: true,
+      current: false,
     },
     {
       name: "Leads",
@@ -45,7 +48,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
       current: false,
     },
     {
-      name: "Perfomances",
+      name: "Performances",
       href: "/espace-pro/performances",
       icon: ArrowTrendingUpIcon,
       current: false,
@@ -56,7 +59,8 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
       icon: EnvelopeIcon,
       current: false,
     },
-  ];
+  ]);
+
   const teams = [
     { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
     // { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
@@ -71,7 +75,15 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [letters, setLetters] = useState<string>(""); // Provide a default value for letters
 
-  const router = useRouter();
+  useEffect(() => {
+    const currentPath = pathName;
+    setNavigation((prevNavigation) =>
+      prevNavigation.map((item) => ({
+        ...item,
+        current: item.href === currentPath,
+      }))
+    );
+  }, [pathName]);
 
   const handleSignOut = async () => {
     try {
