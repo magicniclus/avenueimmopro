@@ -1,5 +1,5 @@
 // lib/database.ts
-import { push, ref, remove, set } from "firebase/database";
+import { get, push, ref, remove, set } from "firebase/database";
 import { database } from "./firebase.config";
 
 /**
@@ -50,6 +50,52 @@ export const deleteData = async (route: string, id: string): Promise<void> => {
     await remove(itemRef); // Supprime l'élément de la base de données
   } catch (error) {
     console.error("Error deleting data:", error);
+    throw error; // Relance l'erreur pour être gérée par l'appelant
+  }
+};
+
+/**
+ * Fonction pour récupérer des données spécifiques dans la Firebase Realtime Database en utilisant un chemin et un ID.
+ * @param route - La route de base où les données doivent être récupérées
+ * @param id - L'ID de l'élément à récupérer
+ * @returns Une promesse résolue avec les données récupérées ou une erreur en cas d'échec
+ */
+export const getDataById = async (route: string, id: string): Promise<any> => {
+  try {
+    const dataRef = ref(database, `${route}/${id}`);
+    const snapshot = await get(dataRef); // Récupère les données à partir de la base de données
+    if (snapshot.exists()) {
+      // console.log("Data retrieved successfully:", snapshot.val());
+      return snapshot.val(); // Retourne les données si elles existent
+    } else {
+      console.log(`No data available at route: ${route}/${id}`);
+      return null; // Retourne null si aucune donnée n'existe à cette route
+    }
+  } catch (error) {
+    console.error("Error getting data:", error);
+    throw error; // Relance l'erreur pour être gérée par l'appelant
+  }
+};
+
+/**
+ * Fonction pour récupérer des données spécifiques dans la Firebase Realtime Database en utilisant un chemin et un ID.
+ * @param route - La route de base où les données doivent être récupérées
+ * @param id - L'ID de l'élément à récupérer
+ * @returns Une promesse résolue avec les données récupérées ou une erreur en cas d'échec
+ */
+export const getDataByRoute = async (route: string): Promise<any> => {
+  try {
+    const dataRef = ref(database, `${route}`);
+    const snapshot = await get(dataRef); // Récupère les données à partir de la base de données
+    if (snapshot.exists()) {
+      // console.log("Data retrieved successfully:", snapshot.val());
+      return snapshot.val(); // Retourne les données si elles existent
+    } else {
+      console.log(`No data available at route: ${route}`);
+      return null; // Retourne null si aucune donnée n'existe à cette route
+    }
+  } catch (error) {
+    console.error("Error getting data:", error);
     throw error; // Relance l'erreur pour être gérée par l'appelant
   }
 };
