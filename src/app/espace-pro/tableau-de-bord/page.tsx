@@ -18,7 +18,9 @@ const Page = () => {
 
   return (
     <div className="relative">
-      <Drawer />
+      <Drawer>
+        <h2>Drawer</h2>
+      </Drawer>
       <SideBarLayout>
         <h1 className="text-gray-700 font-bold text-2xl">Tableau de bord</h1>
         <div className="mt-14">
