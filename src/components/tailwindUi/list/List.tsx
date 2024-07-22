@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getDataById, getDataByRoute } from "@/firebase/database";
 import { setDrawerOpen } from "@/redux/drawerSlice";
 import { ArrowRightIcon, PlusIcon } from "@heroicons/react/20/solid";
 import {
@@ -33,85 +34,71 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronDown, MoreHorizontal } from "lucide-react";
-import * as React from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import Drawer from "../drawers/Drawer";
+import DrawerEstimationContent from "../drawers/DrawerEstimationContent";
 
 // Définir le type de vos données
 type Lead = {
-  name: string;
   type: string;
   status: string;
   email: string;
   date: string;
+  adresse: string;
+  annee: string;
+  ascenseur: boolean;
+  atypical: number;
+  balcon: boolean;
+  box: boolean;
+  chambres: number;
+  confidenceIndex: number;
+  confidenceMax: number;
+  confidenceMin: number;
+  contrat: string;
+  coordinates: [number, number];
+  createdAt: string;
+  dpe: string;
+  etages: string;
+  fai: number;
+  faiRate: number;
+  firstName: string;
+  garage: boolean;
+  ges: string;
+  id: string;
+  jardin: boolean;
+  lastName: string;
+  nego: number;
+  negoRate: number;
+  niveaux: string;
+  oriantation: string[];
+  parking: boolean;
+  phone: string;
+  pieces: number;
+  piscine: boolean;
+  predictedPrice: number;
+  priceM2: number;
+  priceMax: number;
+  priceMin: number;
+  standing: string;
+  surface: number;
+  terrasse: boolean;
+  travaux: boolean;
+  vente: string;
+  virtualPrice: number;
+  virtualPriceAdjustment: number;
+  virtualPriceMax: number;
+  virtualPriceMin: number;
+  vue: string;
 };
-
-const data: Lead[] = [
-  {
-    name: "Jane Cooper",
-    type: "Maison",
-    status: "Active",
-    email: "jane.cooper@example.com",
-    date: "09/01/2024",
-  },
-  {
-    name: "Nicolas CASTERA",
-    type: "Appartement",
-    status: "Active",
-    email: "castera.contact@gmail.com",
-    date: "09/01/2024",
-  },
-];
-
-const columns: ColumnDef<Lead>[] = [
-  {
-    accessorKey: "name",
-    header: "Nom",
-  },
-  {
-    accessorKey: "type",
-    header: "Type de bien",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-        {row.getValue("status")}
-      </span>
-    ),
-  },
-  {
-    accessorKey: "date",
-    header: "Date de la demande",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem>Voir</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
 
 // Fonction de filtre personnalisée pour correspondre à tous les champs
 const globalFilterFn: FilterFn<Lead> = (row, columnId, value) => {
   const term = value.toLowerCase();
   return (
-    row.original.name.toLowerCase().includes(term) ||
+    row.original.firstName.toLowerCase().includes(term) ||
+    row.original.lastName.toLowerCase().includes(term) ||
     row.original.type.toLowerCase().includes(term) ||
     row.original.status.toLowerCase().includes(term) ||
     row.original.email.toLowerCase().includes(term) ||
@@ -124,16 +111,110 @@ export function DataTableDemo(
     withButton: true,
   }
 ) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = React.useState("");
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const columns: ColumnDef<Lead>[] = [
+    {
+      accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+      id: "name",
+      header: "Nom",
+    },
+    {
+      accessorKey: "type",
+      header: "Type de bien",
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <span
+          className={`inline-flex items-center rounded-md bg-gray-50 text-gray-700 ring-gray-600/20`}
+        >
+          {row.original.status ? row.original.status : "A appeler"}
+        </span>
+      ),
+    },
+    {
+      accessorKey: "date",
+      header: "Date de la demande",
+    },
+    {
+      accessorKey: "email",
+      header: "Email",
+    },
+    {
+      accessorFn: (row) => `${Math.round(row.predictedPrice)}€`,
+      id: "predictedPrice",
+      header: "Prix prédit",
+    },
+    {
+      accessorFn: (row) => `${Math.round(row.surface)}m²`,
+      id: "surface",
+      header: "Surface",
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => openDrawerEstimation(row.original.id)}
+            >
+              Voir
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
+    },
+  ];
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [data, setData] = useState<Lead[]>([]);
+  const [getEstimationId, setEstimationId] = useState<string>("");
+  const [getEstimation, setEstimation] = useState<Lead | null>(null);
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  let userId = searchParams.get("id");
 
   const setOpen = (value: boolean) => {
     dispatch(setDrawerOpen(value));
   };
+
+  const openDrawerEstimation = async (id: string) => {
+    setEstimationId(id);
+    const estimationData = await getDataById(`/agents/${userId}/leads`, id);
+    if (estimationData) {
+      setEstimation(estimationData);
+      setOpenDrawer(true);
+    } else {
+      console.error(
+        `No data available at route: /agents/${userId}/leads/${id}`
+      );
+    }
+  };
+
+  useEffect(() => {
+    console.log("userId", userId);
+    getDataByRoute(`/agents/${userId}/leads`).then((data) => {
+      const formattedData = data
+        ? Object.keys(data).map((key) => ({
+            ...data[key],
+            id: key,
+          }))
+        : [];
+      setData(formattedData);
+    });
+  }, [userId]);
 
   const table = useReactTable({
     data,
@@ -155,8 +236,15 @@ export function DataTableDemo(
     onRowSelectionChange: setRowSelection,
   });
 
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false);
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full relative">
+      <Drawer openDrawer={openDrawer} onClose={handleCloseDrawer}>
+        <DrawerEstimationContent estimation={getEstimation} />
+      </Drawer>
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
