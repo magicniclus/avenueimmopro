@@ -78,9 +78,8 @@ export const getDataById = async (route: string, id: string): Promise<any> => {
 };
 
 /**
- * Fonction pour récupérer des données spécifiques dans la Firebase Realtime Database en utilisant un chemin et un ID.
+ * Fonction pour récupérer des données spécifiques dans la Firebase Realtime Database en utilisant un chemin.
  * @param route - La route de base où les données doivent être récupérées
- * @param id - L'ID de l'élément à récupérer
  * @returns Une promesse résolue avec les données récupérées ou une erreur en cas d'échec
  */
 export const getDataByRoute = async (route: string): Promise<any> => {
@@ -96,6 +95,28 @@ export const getDataByRoute = async (route: string): Promise<any> => {
     }
   } catch (error) {
     console.error("Error getting data:", error);
+    throw error; // Relance l'erreur pour être gérée par l'appelant
+  }
+};
+
+/**
+ * Fonction pour récupérer tous les IDs d'une collection dans la Firebase Realtime Database.
+ * @param route - La route de base où les données doivent être récupérées
+ * @returns Une promesse résolue avec la liste des IDs ou une erreur en cas d'échec
+ */
+export const getIdsByRoute = async (route: string): Promise<string[]> => {
+  try {
+    const dataRef = ref(database, route);
+    const snapshot = await get(dataRef); // Récupère les données à partir de la base de données
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      return Object.keys(data); // Retourne les IDs des données
+    } else {
+      console.log(`No data available at route: ${route}`);
+      return []; // Retourne une liste vide si aucune donnée n'existe à cette route
+    }
+  } catch (error) {
+    console.error("Error getting IDs:", error);
     throw error; // Relance l'erreur pour être gérée par l'appelant
   }
 };
