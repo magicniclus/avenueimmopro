@@ -1,25 +1,46 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { setDrawerOpen } from "@/redux/drawerSlice";
 import { RootState } from "@/redux/store";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const Drawer = () => {
+const Drawer = ({
+  children,
+  openDrawer,
+  onClose,
+}: {
+  children: ReactNode;
+  openDrawer?: boolean;
+  onClose?: () => void;
+}) => {
   const dispatch = useDispatch();
   const open = useSelector((state: RootState) => state.drawer.drawerOpen);
 
   const setOpen = (value: boolean) => {
     dispatch(setDrawerOpen(value));
+    if (!value && onClose) {
+      onClose();
+    }
   };
+
+  useEffect(() => {
+    if (openDrawer !== undefined) {
+      setOpen(openDrawer);
+    }
+  }, [openDrawer]);
+
+  const isOpen = openDrawer !== undefined ? openDrawer : open;
 
   return (
     <Dialog
       className="relative z-100"
       style={{ zIndex: "1000" }}
-      open={open}
-      onClose={setOpen}
+      open={isOpen}
+      onClose={() => setOpen(false)}
     >
       <div className="fixed inset-0" />
       <div className="fixed inset-0 overflow-hidden">
@@ -46,7 +67,7 @@ const Drawer = () => {
                   </div>
                 </div>
                 <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                  {/* Your content */}
+                  {children}
                 </div>
               </div>
             </DialogPanel>
